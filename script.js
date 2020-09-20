@@ -1,8 +1,3 @@
-/*document.getElementById('test-button').addEventListener('click', function(){
-    const links = document.querySelectorAll('.titles a');
-    console.log('links:', links);
-  });*/
-
 'use strict';
 
 const titleClickHandler = function (event) {
@@ -26,4 +21,10 @@ const links = document.querySelectorAll('.titles a');
 
 for (let link of links) {
     link.addEventListener('click', titleClickHandler);
+}
+
+const activeArticles = document.querySelectorAll('.titles a.active');
+
+for(let activeArticle of activeArticles){
+  activeArticle.classList.remove('active');
 }
