@@ -33,22 +33,19 @@ const titleClickHandler = function (event) {
 
   /* [DONE] find the correct article using the selector (value of 'href' attribute) */
 
-  const targetArticle = document.querySelector('href');
-
-  console.log('querySelector')
-
   /* add class 'active' to the correct article */
 
   const targetArticle = document.querySelector('href');
 
   for (let activeLink of activeLinks) {
     activeLink.targerArticle.add('active');
+    console.log('querySelector');
   }
 
   for (let link of links) {
     link.addEventListener('click', titleClickHandler);
 
-  const links = document.querySelectorAll('.titles a');
+    const links = document.querySelectorAll('.titles a');
   }
 
   {
@@ -98,6 +95,6 @@ const titleClickHandler = function (event) {
     }
 
     titleList.innerHTML = html;
-  }
 
-  generateTitleLinks();
+}
+   
