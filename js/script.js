@@ -1,3 +1,8 @@
+const templates = {
+    articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+    tagLink: Handlebars.compile(document.querySelector('#template-tagLink').innerHTML),
+    tagCloudLink: Handlebars.compile(document.querySelector('#templates.tagCloudLink').innerHTML)
+}
 {
     'use strict';
 
@@ -78,7 +83,8 @@
 
             /* [DONE] create HTML of the link */
 
-            const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+            const linkHTMLData = { id: articleId, title: articleTitle };
+            const linkHTML = templates.articleLink(linkHTMLData);
             console.log(linkHTML);
 
             /* [DONE] insert link into titleList */
@@ -124,8 +130,8 @@
             for (let tag of articleTagsArray) {
 
                 /* generate HTML of the link */
-                const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
-
+                const linkHTMLData = { id: tag, title: tag };
+                const linkHTML = templates.tagLink(linkHTMLData);
                 /* add generated code to html variable */
                 html += linkHTML;
 
@@ -154,7 +160,11 @@
         console.log('tagsParams:', tagsParams)
 
         /* [NEW] create variable for all links HTML code */
-        allTagsHTML += tagLinkHTML;
+        allTagsData.tags.push({
+            tag: tag,
+            count: allTags[tag],
+            className: calculateTagClass(allTags[tag], tagsParams)
+        });
 
         const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParam) + '</li>';
         console.log('tagLinkHTML:', tagLinkHTML);
@@ -169,7 +179,7 @@
         const tagsParams = calculateTagsParams(allTags);
         console.log('tagsParams:', tagsParams)
         /* [NEW] create variable for all links HTML code */
-        let allTagsHTML = '';
+        const allTagsData = { tags: [] };
 
         /* [NEW] START LOOP: for each tag in allTags: */
         for (let tag in allTags) {
@@ -179,7 +189,7 @@
         /* [NEW] END LOOP: for each tag in allTags: */
 
         /*[NEW] add HTML from allTagsHTML to tagList */
-        tagList.innerHTML = allTagsHTML;
+        tagList.innerHTML = templates.tagCloudLink(allTagsData);
     }
 
     function tagClickHandler(event) {
